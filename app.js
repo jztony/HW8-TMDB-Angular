@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist/HW8-FE')));
 
 const port = process.env.PORT || 8080;
-const api_key = '1c631779670da6470dc551b6877429b9';
+const api_key = '';
 
 
 app.get('/', (req, res) => {
