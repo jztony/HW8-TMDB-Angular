@@ -1,0 +1,270 @@
+<div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v10.0" nonce="3xK2duB3"></script>
+
+  <div style='margin-left: 10%; margin-top: 40px;'>
+
+    <div *ngIf='trailers && !isMobile' style='display: inline-block;'>
+      <!-- {{trailers | json}} -->
+
+      <youtube-player class='player' *ngIf='trailers.results[0]'
+        [videoId]="trailers.results[0].key"
+        suggestedQuality="highres"
+        [height]="600"
+        [width]="1080"
+      >
+      </youtube-player>
+
+      <!-- elseBlock doesn't work, so use length==0 -->
+      <youtube-player class='player' *ngIf='trailers.results.length==0'
+        videoId="tzkWB85ULJY"
+        suggestedQuality="highres"
+        [height]="600"
+        [width]="1080"
+      >
+      </youtube-player>
+    </div>
+
+    <div *ngIf='trailers && isMobile'>
+      <youtube-player *ngIf='trailers.results[0]'
+        [videoId]="trailers.results[0].key"
+        [height]="270"
+        [width]="360"
+      >
+      </youtube-player>
+
+      <!-- elseBlock doesn't work, so use length==0 -->
+      <youtube-player *ngIf='trailers.results.length==0'
+        videoId="tzkWB85ULJY"
+        [height]="270"
+        [width]="360"
+      >
+      </youtube-player>
+    </div>
+
+    <div *ngIf='return_detail' style='margin-left: 20px; width: 400px; display: inline-block; vertical-align: top; margin-top: 40px;'>
+      <!-- test info -->
+      <!-- <p>media type is: {{media_info.type}}</p> -->
+      <!-- <p>media id is: {{media_info.id}}</p> -->
+      <!-- {{return_detail | json}} -->
+
+      <h1 *ngIf='return_detail.name'>{{ return_detail.name }}</h1>
+      <h1 *ngIf='return_detail.title'>{{ return_detail.title }}</h1>
+      <p style='color: lightgray;'><i>{{return_detail.tagline}}</i></p>
+      <p *ngIf='return_detail.title' style='color: lightgray;'>{{return_detail.release_date.slice(0,4)}} | &#9733;{{return_detail.vote_average}} | {{math.floor(return_detail.runtime / 60)}}hrs {{math.floor(return_detail.runtime % 60)}}mins</p>
+      <p *ngIf='return_detail.name' style='color: lightgray;'>{{return_detail.first_air_date.slice(0,4)}} | &#9733;{{return_detail.vote_average}}</p>
+      <p *ngIf='return_detail.title'>Genres:
+        <ng-container *ngFor='let genre of return_detail.genres' style='color: lightgray;'>
+          {{genre.name}},
+        </ng-container>
+      </p>
+      <p>Spoken Languages:
+        <ng-container *ngFor='let lang of return_detail.spoken_languages' style='color: lightgray;'>
+          {{lang.name}},
+        </ng-container>
+      </p>
+      <!-- <p>overview: {{ return_detail.overview }}</p> -->
+
+      <!-- add return_detail.name -->
+
+
+
+      <button *ngIf='remove_order==-1' class="btn btn-lg btn-primary btn_margin" (click)="setWatch();">Add to Watchlist</button>
+      <button *ngIf='!(remove_order==-1)' class="btn btn-lg btn-primary btn_margin" (click)="setWatch()">Remove from Watchlist</button>
+      <ngb-alert #selfClosingAlert *ngIf="successMessage" type="success" (closed)="successMessage = ''">{{ successMessage }}
+      </ngb-alert>
+      <ngb-alert #removeAlert *ngIf="removeMessage" type="danger" (closed)="removeMessage = ''">{{ removeMessage }}
+      </ngb-alert>
+      <!-- optional -->
+      <!-- [startSeconds]="0"
+      [endSeconds]="60" -->
+
+      <!-- <div *ngFor='let item of return_detail| keyvalue'>
+        <li></li>
+        {{ item.key }} : {{ item.value }}
+      </div> -->
+
+    </div>
+
+
+  </div>
+
+  <div style="margin-left: 10%;">
+    <p style='font-weight: bold; margin-top: 20px;'>Description</p>
+    <p style="margin-right: 10%;">{{ return_detail.overview }}</p>
+
+    <div *ngIf='trailers.results[0]'>
+      <p style='font-weight: bold;'>Share</p>
+      <a [href]='"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D" + trailers.results[0].key + "&amp;src=sdkpreparse"' target="_blank">
+        <fa-icon class="extern fa-2x" [icon]="faFacebook" style="color: #4267B2;"></fa-icon>
+      </a>
+      <a [href]='"https://twitter.com/intent/tweet?text=Watch%20"
+
+      +"\n"
+      +"https://www.youtube.com/watch?v="
+      + trailers.results[0].key'
+      target="_blank">
+        <fa-icon class="extern fa-2x" [icon]="faTwitter" style="color: #1DA1F2;"></fa-icon>
+      </a>
+    </div>
+
+    <div *ngIf='!(trailers.results[0])'>
+      <a [href]="'https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DtzkWB85ULJY&amp;src=sdkpreparse'" target="_blank">
+        <fa-icon class="extern fa-2x" [icon]="faFacebook" style="color: #4267B2;"></fa-icon>
+      </a>
+
+    </div>
+  </div>
+
+
+
+  <h2>Full Cast and Crew</h2>
+  <div *ngIf='casts' class='container' style='width: 1000px;'>
+
+    <div class='row' [style.width.px]='casts.cast.length*(185+20)+20'>
+
+      <ng-container *ngIf='!isMobile'>
+        <div *ngFor='let item of casts.cast' class='card' (click)='openLg(content, item.id)'>
+          <!-- <img *ngIf='item.profile_path' [src]="'https://image.tmdb.org/t/p/w185'+item.profile_path"> -->
+          <img *ngIf='item.profile_path' [src]="'https://image.tmdb.org/t/p/w185' + item.profile_path" class="images">
+          <img *ngIf='!item.profile_path || item.profile_path==null' src="https://bytes.usc.edu/cs571/s21_JSwasm00/hw/HW6/imgs/person-placeholder.png" class="images">
+          <p class='in_card cast_name' [textContent]="item.name+'\n AS'" style="white-space: pre-line; margin-bottom: 0; font-weight: bold;"></p>
+          <p class='in_card' style="margin-top: 0;">{{item.character}}</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf='isMobile'>
+        <div *ngFor='let item of casts.cast' class='card' (click)='openSm(content, item.id)'>
+          <!-- <img *ngIf='item.profile_path' [src]="'https://image.tmdb.org/t/p/w185'+item.profile_path"> -->
+          <img *ngIf='item.profile_path' [src]="'https://image.tmdb.org/t/p/w185' + item.profile_path" class="images">
+          <img *ngIf='!item.profile_path || item.profile_path==null' src="https://bytes.usc.edu/cs571/s21_JSwasm00/hw/HW6/imgs/person-placeholder.png" class="images">
+          <p class='in_card cast_name' [textContent]="item.name+'\n AS'" style="white-space: pre-line; margin-bottom: 0; font-weight: bold;"></p>
+          <p class='in_card' style="margin-top: 0;">{{item.character}}</p>
+        </div>
+      </ng-container>
+
+    </div>
+
+  </div>
+
+  <h2 *ngIf='reviews.results.length < 11'>Reviews {{reviews.results.length}}</h2>
+  <h2 *ngIf='!(reviews.results.length < 11)'>Reviews 10</h2>
+
+  <div *ngIf='!isMobile' style='width: 80%; margin: auto;'>
+
+    <div *ngFor="let review of reviews.results; let i = index">
+      <div *ngIf='i < 10' class='review_card'>
+        <div *ngIf='review.author_details.avatar_path;else no_avatar' style='display: inline-block; vertical-align: top; width: 20%; text-align: center; margin-top: 40px;'>
+          <!-- <p>https://secure.gravatar.com/avatar{{review.author_details.avatar_path}}</p> -->
+          <img *ngIf='review.author_details.avatar_path.includes("https:")==true' [src]='review.author_details.avatar_path.slice(1,review.author_details.avatar_path.length)' height=50px width=50px>
+          <img *ngIf='review.author_details.avatar_path.includes("https:")==false' [src]='"https://image.tmdb.org/t/p/original" + review.author_details.avatar_path' height=50px width=50px>
+        </div>
+        <ng-template #no_avatar>
+          <div style='display: inline-block; vertical-align: top; width: 20%; text-align: center; margin-top: 20px;'>
+            <img [src]='"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHnPmUvFLjjmoYWAbLTEmLLIRCPpV_OgxCVA&usqp=CAU"' height=50px width=50px>
+          </div>
+        </ng-template>
+
+        <div style='display: inline-block; width: 80%; margin-top: 20px;'>
+          <div *ngIf='i < 10'>
+            <h3 *ngIf='review.author_details.rating'>A review created by {{review.author}} &#9733;{{review.author_details.rating}}</h3>
+            <h3 *ngIf='!(review.author_details.rating)'>A review created by {{review.author}}</h3>
+            <p class='in_card' style='color: gray;'>Written by {{review.author}} on {{review.created_at | date:'longDate'}}, {{review.created_at | date:'mediumTime'}}</p>
+            <p class='in_card'>content: {{(review.content | slice:0:520) + "..."}}</p>
+            <a [href]='review.url' target="_blank">Read the rest</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf='isMobile' style='width: 90%; margin: auto;'>
+
+    <div *ngFor="let review of reviews.results; let i = index">
+      <div *ngIf='i < 10' class='review_card_m'>
+        <div *ngIf='review.author_details.avatar_path;else no_avatar' style='display: inline-block; vertical-align: top; width: 20%; text-align: center; margin-top: 40px; margin-left: 30px;'>
+          <!-- <p>https://secure.gravatar.com/avatar{{review.author_details.avatar_path}}</p> -->
+          <img *ngIf='review.author_details.avatar_path.includes("https:")==true' [src]='review.author_details.avatar_path.slice(1,review.author_details.avatar_path.length)' height=50px width=50px>
+          <img *ngIf='review.author_details.avatar_path.includes("https:")==false' [src]='"https://image.tmdb.org/t/p/original" + review.author_details.avatar_path' height=50px width=50px>
+        </div>
+        <ng-template #no_avatar>
+          <div style='vertical-align: top; width: 20%; text-align: center; margin-top: 20px;'>
+            <img [src]='"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHnPmUvFLjjmoYWAbLTEmLLIRCPpV_OgxCVA&usqp=CAU"' height=50px width=50px>
+          </div>
+        </ng-template>
+
+        <div style='width: 80%; margin-top: 20px; margin-left: 20px;'>
+          <div *ngIf='i < 10'>
+            <h3 *ngIf='review.author_details.rating'>A review created by {{review.author}} &#9733;{{review.author_details.rating}}</h3>
+            <h3 *ngIf='!(review.author_details.rating)'>A review created by {{review.author}}</h3>
+            <p class='in_card' style='color: gray;'>Written by {{review.author}} on {{review.created_at | date:'longDate'}}, {{review.created_at | date:'mediumTime'}}</p>
+            <p class='in_card'>content: {{(review.content | slice:0:100) + "..."}}</p>
+            <a [href]='review.url' target="_blank">Read the rest</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{personName}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class='modal-body'>
+
+      <div style='display: inline-flex; margin-top: 10px;'>
+        <img [src]="'https://image.tmdb.org/t/p/w185' + personPath">
+      </div>
+
+      <div style='display: inline-block; width: 500px; margin-left: 20px; margin-bottom: 20px; margin-top: 10px;'>
+        <p class='in_card'>Birth: {{person.birthday}}</p>
+        <p class='in_card' style='margin-top: 0px;'>Birth Place: {{person.place_of_birth}}</p>
+        <p class='in_card' *ngIf='person.gender == 2'>Gender: Male</p>
+        <p class='in_card' *ngIf='person.gender == 1'>Gender: Female</p>
+        <p class='in_card'>Known for: {{person.known_for_department}}</p>
+        <p class='in_card'>
+          Also Known as:
+          <ng-container *ngFor='let name of person.also_known_as'>
+            {{name}}
+          </ng-container>
+        </p>
+
+        <div>
+          <a *ngIf='external.imdb_id' [href]='"https://www.imdb.com/name/" + external.imdb_id' target="_blank">
+            <fa-icon class="extern fa-2x" [icon]="faImdb" style="color: goldenrod; " ngbPopover="Visit IMDB"></fa-icon>
+          </a>
+          <a *ngIf='external.instagram_id' [href]='"https://www.instagram.com/"+externalINS' target="_blank">
+            <fa-icon class="extern fa-2x" [icon]="faInstagram" style="color: #8a3ab9;" ngbPopover="Visit instagram"></fa-icon>
+          </a>
+          <a *ngIf='external.facebook_id' [href]='"https://www.facebook.com/"+externalFB' target="_blank">
+            <fa-icon class="extern fa-2x" [icon]="faFacebook" style="color: #4267B2;" ngbPopover="Visit facebook"></fa-icon>
+          </a>
+          <a *ngIf='external.twitter_id' [href]='"https://twitter.com/"+externalTW' target="_blank">
+            <fa-icon class="extern fa-2x" [icon]="faTwitter" style="color: #1DA1F2;" ngbPopover="Visit twitter"></fa-icon>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf='person.biography'>
+      <h2 class='in_card bio_text'>Biography</h2>
+      <p class='in_card bio_text'>{{person.biography}}</p>
+    </div>
+
+  </ng-template>
+
+
+  <h2 *ngIf='media_info.type == "movie"'>Recommended Movies</h2>
+  <h2 *ngIf='media_info.type == "tv"'>Recommended TV Shows</h2>
+  <app-movies [header]='"Recommended"' [media]='media_info'></app-movies>
+
+  <h2 *ngIf='media_info.type == "movie"'>Similar Movies</h2>
+  <h2 *ngIf='media_info.type == "tv"'>Similar TV Shows</h2>
+  <app-movies [header]='"Similar"' [media]='media_info'></app-movies>

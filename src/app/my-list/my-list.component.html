@@ -1,0 +1,16 @@
+
+<h2 *ngIf='has_media==false' style="text-align: center; color: white;">No items found in Watchlist.</h2>
+<h2 *ngIf='has_media==true' style="color: white; margin-top: 40px; margin-left: 20px;">My Watchlist</h2>
+
+<div *ngFor='let slide of Arr(math.floor(results.length / 6 + 1)).fill(1); let i = index'>
+  <div *ngFor='let movie of results; let j = index' style="display: inline-block;" class='pic_wrapper'>
+    <div class="child_pic">
+      <img *ngIf='math.floor(j / 6) == i'
+      [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+      [routerLink]="['/watch', media_info[j].type, media_info[j].id]"
+      style="margin: 40px;">
+      <p *ngIf='movie.title' class='media_name'>{{movie.title}}</p>
+      <p *ngIf='movie.name' class='media_name'>{{movie.name}}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.form-control {
+  width: 300px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px white solid;
+  background-color: transparent;
+}

@@ -1,0 +1,17 @@
+<ng-template #rt let-r="result" let-t="term" >
+  <div [routerLink]="['/watch', r.type, r.id]">
+    <img *ngIf='r.path' [src]="'https://image.tmdb.org/t/p/w92' + r['path']" class="mr-1" style="width: 92px">
+    <ngb-highlight [result]="r.name" [term]="t" routerLinkActive="active"></ngb-highlight>
+  </div>
+</ng-template>
+
+<!-- <label for="typeahead-basic">Search for a movie:</label> -->
+<input id="typeahead-http" type="text"
+class="form-control mx-sm-3"
+style='color: white;'
+[(ngModel)]="model"
+[ngbTypeahead]="search"
+[resultTemplate]="rt"
+[inputFormatter]="formatter"
+placeholder="Search" />
+<!-- <pre>Model: {{ model | json }}</pre> -->

@@ -1,0 +1,42 @@
+<ng-container *ngIf='!isMobile'>
+  <ngb-carousel *ngIf="playing" id='big_carousel'>
+    <ng-template ngbSlide *ngFor='let media of playing'>
+
+
+      <div [routerLink]="['/watch/movie/', media.id]" class='parent'>
+        <div class='child'>
+          <img [src]="'https://image.tmdb.org/t/p/w780' + media.backdrop_path" alt="Random first slide" width="1300px" height="auto">
+        </div>
+      </div>
+
+
+      <div class="carousel-caption">
+        <p>{{media.title}}</p>
+      </div>
+    </ng-template>
+
+  </ngb-carousel>
+</ng-container>
+
+<!-- <div class='img_shadow'></div> -->
+
+<ng-container *ngIf='isMobile'>
+  <ngb-carousel *ngIf="playing"
+  [showNavigationIndicators]="false">
+    <ng-template ngbSlide *ngFor='let media of playing'>
+
+
+      <div [routerLink]="['/watch/movie/', media.id]" style='text-align: center;'>
+        <img class='bd_pic' [src]="'https://image.tmdb.org/t/p/w300' + media.backdrop_path" alt="Random first slide">
+        <!-- <div class='img_shadow'></div> -->
+      </div>
+
+
+      <div class="carousel-caption">
+        <p>{{media.title}}</p>
+      </div>
+    </ng-template>
+
+  </ngb-carousel>
+</ng-container>
+

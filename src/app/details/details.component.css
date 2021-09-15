@@ -1,0 +1,88 @@
+.container {
+  width: 1000px;
+  height: 400px;
+  overflow-x: scroll;
+  overflow-y: hidden; /* prevent vertical scroll */
+}
+
+.card {
+  width: 185px;
+  height: 380px;
+  margin-left: 20px;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.review_card {
+  width: 90%;
+  height: 300px;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-right: 20px;
+  /* text-align: center; */
+}
+
+.review_card_m {
+  width: 90%;
+  height: 500px;
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-right: 20px;
+  /* text-align: center; */
+}
+
+
+/* .card > img {
+  margin-bottom: .75rem;
+}
+
+.card-text {
+  font-size: 85%;
+} */
+
+.extern {
+  /* width: 100px; */
+  margin-left: 10px;
+}
+
+/* @media screen and (max-width: 400px) {
+  .player youtube-player {
+    height: 270px;
+    width: 360px;
+  }
+} */
+
+p, h2, h1 {
+  color: white;
+}
+
+.in_card {
+  color: black;
+}
+
+.btn_margin {
+  margin-bottom: 20px;
+}
+
+.bio_text {
+  margin: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-left: 10%;
+  font-weight: 600;
+}
+
+.cast_name {
+  font-size: bold;
+}
+
+.modal_m {
+  width: 380px;
+}

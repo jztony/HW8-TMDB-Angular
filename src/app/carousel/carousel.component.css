@@ -1,0 +1,139 @@
+.picsum-img-wrapper {
+  left: 300px;
+  margin-left: 300px;
+  text-align: middle;
+  height: 500px;
+  width: 1300px;
+  overflow: hidden;
+  /* border: 1px white solid; */
+  /* width: 1000px; */
+}
+
+.caption-m {
+  text-align: left;
+  margin-left: 100px;
+}
+
+.carousel-caption {
+  text-align: left;
+  margin-left: 100px;
+  /* margin-bottom: 50px; */
+}
+
+
+
+::ng-deep #big_carousel .carousel-indicators {
+  bottom: 0;
+}
+
+::ng-deep #big_carousel .carousel-control-prev {
+  left: 200px;
+}
+
+::ng-deep #big_carousel .carousel-control-next {
+  right: 200px;
+}
+
+
+.bd_pic {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: all .2s;
+}
+
+.picsum-img-wrapper {
+  height: 500px;
+  width: 1300px;
+}
+
+.bd_pic::before {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(52,73,94,0.75);
+}
+
+.picsum-img-wrapper:hover .bd_pic {
+  transition: transform 0.2s; /* Animation */
+  transform: scale(1.1);
+}
+
+.picsum-img-wrapper:hover .bd_pic::before {
+  display: block;
+}
+
+/* .img_shadow {
+  position: absolute;
+  width: 1300px;
+  height: 500px;
+  left: 300px;
+  top: 0;
+  background-image: linear-gradient(to bottom, transparent ,transparent, transparent, black);
+  overflow: hidden;
+  opacity: 0;
+}
+
+.bd_pic:hover .img_shadow:hover {
+  position: absolute;
+  width: 1300px;
+  height: 500px;
+  left: 300px;
+  top: 0;
+  background-image: linear-gradient(to bottom, transparent ,transparent, transparent, black);
+  overflow: hidden;
+  transition: .2s ease;
+  opacity: 1;
+} */
+
+.parent {
+  width: 1300px;
+  margin-left: 300px;
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.child {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s;
+}
+
+.parent:hover .child, .parent:focus .child {
+  -ms-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.parent:hover .child:before, .parent:focus .child:before {
+  display: block;
+}
+
+.parent:hover a, .parent:focus a {
+  display: block;
+}
+
+.child:before {
+  content: "";
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, transparent ,transparent, black);
+}

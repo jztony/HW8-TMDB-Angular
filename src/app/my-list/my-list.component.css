@@ -1,0 +1,43 @@
+.media_name {
+  display: none;
+  font-size: 15px;
+  color: white;
+  position: absolute;
+  top: 260px;
+  left: 40px;
+  bottom: 0;
+  right: 0;
+  width: 185px;
+  text-align: center;
+}
+
+.child_pic:before {
+  content: "";
+  display: none;
+  height: 278px;
+  width: 185px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 40px;
+  margin-top: 40px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.pic_wrapper {
+  overflow: visible;
+}
+
+
+.pic_wrapper:hover .child_pic {
+  transition: all .2s;
+  transform: scale(1.1);
+}
+
+.pic_wrapper:hover .child_pic:before {
+  display: block;
+}
+
+.pic_wrapper:hover .media_name {
+  display: block;
+}

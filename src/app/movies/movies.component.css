@@ -1,0 +1,141 @@
+/* ::ng-deep .carousel-control-prev-icon {
+  width: 50px;
+  height: 50px;
+} */
+
+/* ::ng-deep .carousel-control-next-icon {
+  width: 50px;
+  height: 50px;
+} */
+
+/* ::ng-deep .carousel-control-prev {
+  left: -80px;
+} */
+
+/* ::ng-deep .carousel-control-next {
+  right: -80px;
+} */
+
+::ng-deep .carousel-indicators {
+  bottom: -15%;
+}
+
+/* .c_img {
+  margin-left: 40px;
+} */
+
+/* .picsum-img-wrapper {
+  left: 100px;
+  right: 100px;
+} */
+
+.first_pic {
+  margin-left: 300px;
+}
+
+.other_pic {
+  margin-left: 40px;
+}
+
+
+
+
+.media_name {
+  display: none;
+  font-size: 15px;
+  color: white;
+  position: absolute;
+  top: 220px;
+  left: 40px;
+  bottom: 0;
+  right: 0;
+  width: 185px;
+  text-align: center;
+}
+
+.media_name1 {
+  display: none;
+  font-size: 15px;
+  color: white;
+  position: absolute;
+  top: 220px;
+  left: 300px;
+  bottom: 0;
+  right: 0;
+  width: 185px;
+  text-align: center;
+}
+
+.child_pic:before {
+  content: "";
+  display: none;
+  height: 100%;
+  width: 185px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 40px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.child_pic1:before {
+  content: "";
+  display: none;
+  height: 100%;
+  width: 185px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 300px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+
+.pic_wrapper {
+  overflow: visible;
+  /* width: 185px; */
+}
+
+
+.pic_wrapper:hover .child_pic {
+  /* -ms-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -o-transform: scale(1.1); */
+  transition: all .2s;
+  transform: scale(1.1);
+}
+
+.pic_wrapper:hover .child_pic1 {
+  transition: all .2s;
+  transform: scale(1.1);
+}
+
+.pic_wrapper:hover .child_pic:before {
+  display: block;
+  /* background-color: rgba(0,0,0,0.75); */
+}
+
+.pic_wrapper:hover .child_pic1:before {
+  display: block;
+}
+
+.pic_wrapper:hover .media_name {
+  display: block;
+}
+
+.pic_wrapper:hover .media_name1 {
+  display: block;
+}
+
+h2 {
+  color: white;
+}
+
+.h2_m {
+  width: 185px;
+  font-weight: 600;
+  margin-left: 20%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,154 @@
+<h2 *ngIf='header!="Recommended" && header!="Similar" && !isMobile'>{{header}}</h2>
+<h2 *ngIf='header!="Recommended" && header!="Similar" && isMobile' class='h2_m'>{{header}}</h2>
+<!-- <h2 *ngIf='header==("Recommended" || "Similar") && media.type=="movie"'>{{header}} Movies</h2>
+<h2 *ngIf='header==("Recommended" || "Similar") && media.type=="tv"'>{{header}} TV Shows</h2> -->
+<ng-container *ngIf='!isMobile'>
+  <!-- continue watching -->
+  <ngb-carousel *ngIf='header=="Continue Watching"' >
+    <ng-template ngbSlide *ngFor='let slide of oArr(math.ceil(movie_display.length / 6)).fill(1); let i = index'>
+      <div *ngFor='let movie of movie_display; let j = index' style="display: inline-block;" class="picsum-img-wrapper"
+      [ngClass]="{'pic_wrapper': true}" [routerLink]="['/watch', id_type[movie.id], movie.id]">
+
+        <div [ngClass]="{'child_pic': j % 6 != 0,'child_pic1': j % 6 == 0}">
+          <img *ngIf='math.floor(j / 6) == i && j % 6 == 0'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [routerLink]="['/watch', id_type[movie.id], movie.id]"
+          [ngClass]="{'first_pic': true}">
+          <img *ngIf='math.floor(j / 6) == i && !(j % 6 == 0)'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [routerLink]="['/watch', id_type[movie.id], movie.id]"
+          [ngClass]="{'other_pic': true}">
+          <p *ngIf='movie.title' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.title}}</p>
+          <p *ngIf='movie.name' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.name}}</p>
+        </div>
+
+      </div>
+
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+
+  <!-- <p>{{other_display | json}}</p> -->
+
+
+  <!-- other movies on homepage -->
+  <!-- <h3 *ngIf='!(header=="Continue Watching")'>there are {{other_display.length}} popular movies</h3> -->
+
+  <ngb-carousel *ngIf='!media && header!="Continue Watching"'>
+    <ng-template ngbSlide *ngFor='let slide of oArr(math.ceil(other_display.length / 6)).fill(1); let i = index'>
+      <div *ngFor='let movie of other_display; let j = index' style="display: inline-block;" class="picsum-img-wrapper"
+      [ngClass]="{'pic_wrapper': true}" [routerLink]="['/watch', media_type, movie.id]">
+        <div [ngClass]="{'child_pic': j % 6 != 0,'child_pic1': j % 6 == 0}">
+          <img *ngIf='math.floor(j / 6) == i && movie.poster_path && j % 6 == 0'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [ngClass]="{'first_pic': true}">
+          <img *ngIf='math.floor(j / 6) == i && !movie.poster_path && j % 6 == 0'
+          [src]="'https://cinemaone.net/images/movie_placeholder.png'"
+          [ngClass]="{'first_pic': true}">
+          <img *ngIf='math.floor(j / 6) == i && movie.poster_path && j % 6 != 0'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [ngClass]="{'other_pic': true}">
+          <img *ngIf='math.floor(j / 6) == i && !movie.poster_path && j % 6 != 0'
+          [src]="'https://cinemaone.net/images/movie_placeholder.png'"
+          [ngClass]="{'other_pic': true}">
+          <p *ngIf='movie.title' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.title}}</p>
+          <p *ngIf='movie.name' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.name}}</p>
+        </div>
+
+      </div>
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+
+  <!-- detail page movies -->
+  <ngb-carousel *ngIf='media'>
+    <ng-template ngbSlide *ngFor='let slide of oArr(math.ceil(other_display.length / 6)).fill(1); let i = index'>
+      <div *ngFor='let movie of other_display; let j = index' style="display: inline-block;" class="picsum-img-wrapper"
+      [ngClass]="{'pic_wrapper': true}">
+        <div [ngClass]="{'child_pic': j % 6 != 0,'child_pic1': j % 6 == 0}">
+          <img *ngIf='math.floor(j / 6) == i && (j % 6 == 0)'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [ngClass]="{'first_pic': true}">
+          <img *ngIf='math.floor(j / 6) == i && !(j % 6 == 0)'
+          [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+          [ngClass]="{'other_pic': true}">
+          <p *ngIf='movie.title' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.title}}</p>
+          <p *ngIf='movie.name' [ngClass]="{'media_name': j % 6 != 0,'media_name1': j % 6 == 0}">{{movie.name}}</p>
+        </div>
+
+      </div>
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+</ng-container>
+
+<ng-container *ngIf='isMobile'>
+  <!-- continue watching -->
+  <ngb-carousel *ngIf='header=="Continue Watching"'
+  [showNavigationIndicators]="false">
+    <ng-template ngbSlide *ngFor='let movie of movie_display'>
+      <div>
+        <img class='c_img'
+        [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+        [routerLink]="['/watch', id_type[movie.id], movie.id]"
+        style='margin-left: 25%;'>
+      </div>
+
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+
+  <!-- <p>{{other_display | json}}</p> -->
+
+
+  <!-- other movies on homepage -->
+  <!-- <h3 *ngIf='!(header=="Continue Watching")'>there are {{other_display.length}} popular movies</h3> -->
+
+  <ngb-carousel *ngIf='!media && header!="Continue Watching"'
+  [showNavigationIndicators]="false">
+    <ng-template ngbSlide *ngFor='let movie of other_display'>
+      <div>
+        <img *ngIf='!movie.poster_path'
+        [src]='image'
+        [routerLink]="['/watch', media_type, movie.id]"
+        style="margin-left: 25%;">
+        <img *ngIf='movie.poster_path'
+        [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+        [routerLink]="['/watch', media_type, movie.id]"
+        style="margin-left: 25%;">
+      </div>
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+
+  <!-- detail page movies -->
+  <ngb-carousel *ngIf='media'
+  [showNavigationIndicators]="false">
+    <ng-template ngbSlide *ngFor='let movie of other_display'>
+      <div>
+        <img
+        [src]="'https://image.tmdb.org/t/p/w185' + movie.poster_path"
+        style="margin-left: 25%;">
+      </div>
+      <!-- <div class="carousel-caption">
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </div> -->
+    </ng-template>
+  </ngb-carousel>
+</ng-container>
